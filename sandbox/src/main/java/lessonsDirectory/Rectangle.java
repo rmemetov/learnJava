@@ -1,3 +1,5 @@
+package lessonsDirectory;
+
 public class Rectangle {
 
     public double a;

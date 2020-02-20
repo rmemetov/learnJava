@@ -1,3 +1,5 @@
+package lessonsDirectory;
+
 public class Square {
 
     public double l;
