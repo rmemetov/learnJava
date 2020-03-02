@@ -1,11 +1,20 @@
 package ru.stqa.fpt.addressbook.appmanager;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.stqa.fpt.addressbook.model.ContactData;
 
+import static org.testng.Assert.assertTrue;
+
 public class ContactHelper {
+    public boolean acceptNextAlert = true;
+
     protected WebDriver wd;
+
+    public void acceptNextAlert() {
+        acceptNextAlert = true;
+    }
 
     public ContactHelper(WebDriver wd) {
         this.wd = wd;
@@ -47,5 +56,36 @@ public class ContactHelper {
 
     public void editContact() {
         wd.findElement(By.xpath("//img[@alt='Edit']")).click();
+    }
+
+    public void deleteContact() {
+        wd.findElement(By.xpath("//input[@value='Delete']")).click();
+    }
+
+    public void acceptNextAllert() {
+        acceptNextAlert = true;
+    }
+
+    public void getContactById() {
+        wd.findElement(By.name("selected[]")).click();
+    }
+
+    public void closeAlert() {
+        assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
+    }
+
+    public String closeAlertAndGetItsText() {
+        try {
+            Alert alert = wd.switchTo().alert();
+            String alertText = alert.getText();
+            if (acceptNextAlert) {
+                alert.accept();
+            } else {
+                alert.dismiss();
+            }
+            return alertText;
+        } finally {
+            acceptNextAlert();
+        }
     }
 }
