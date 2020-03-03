@@ -27,11 +27,11 @@ public class ApplicationManager {
 
     public void init() {
         System.setProperty("webdriver.chrome.driver", "utils/chromedriver.exe");
-        if (browser == BrowserType.CHROME) {
+        if (browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
-        } else if (browser == BrowserType.FIREFOX){
+        } else if (browser.equals(BrowserType.FIREFOX)){
             wd = new FirefoxDriver();
-        } else if (browser == BrowserType.IE) {
+        } else if (browser.equals(BrowserType.IE)) {
             wd = new InternetExplorerDriver();
         }
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
