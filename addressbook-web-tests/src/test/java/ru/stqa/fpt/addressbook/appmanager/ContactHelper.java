@@ -3,11 +3,12 @@ package ru.stqa.fpt.addressbook.appmanager;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.fpt.addressbook.model.ContactData;
 
 import static org.testng.Assert.assertTrue;
 
-public class ContactHelper {
+public class ContactHelper extends HelperBase{
     public boolean acceptNextAlert = true;
 
     protected WebDriver wd;
@@ -44,7 +45,13 @@ public class ContactHelper {
         wd.findElement(By.name("email")).click();
         wd.findElement(By.name("email")).clear();
         wd.findElement(By.name("email")).sendKeys(contactData.getEmail());
-    }
+
+
+        if (isElementPresent(By.name("new_group"))) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        }
+        }
+
 
     public void goToAddContactPage() {
         wd.findElement(By.linkText("add new")).click();
