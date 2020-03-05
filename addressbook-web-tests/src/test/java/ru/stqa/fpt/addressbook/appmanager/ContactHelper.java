@@ -4,21 +4,23 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.fpt.addressbook.model.ContactData;
 
 import static org.testng.Assert.assertTrue;
 
-public class ContactHelper extends HelperBase{
+public class ContactHelper extends HelperBase {
+
     public boolean acceptNextAlert = true;
 
-    protected WebDriver wd;
 
     public void acceptNextAlert() {
         acceptNextAlert = true;
     }
 
     public ContactHelper(WebDriver wd) {
-        this.wd = wd;
+
+        super(wd);
     }
 
     public void logoutToWelcomePage() {
@@ -29,7 +31,7 @@ public class ContactHelper extends HelperBase{
         wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
     }
 
-    public void fillForm(ContactData contactData) {
+    public void fillForm(ContactData contactData, boolean creation) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys(contactData.getFirstname());
@@ -46,11 +48,13 @@ public class ContactHelper extends HelperBase{
         wd.findElement(By.name("email")).clear();
         wd.findElement(By.name("email")).sendKeys(contactData.getEmail());
 
-
-        if (isElementPresent(By.name("new_group"))) {
+        if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
-        }
+
+    }
 
 
     public void goToAddContactPage() {
