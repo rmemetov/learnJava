@@ -99,4 +99,19 @@ public class ContactHelper extends HelperBase {
             acceptNextAlert();
         }
     }
+
+
+    public void createContact(ContactData contactData, boolean b) {
+        fillForm(contactData, b);
+        confirmContactCreation();
+        homePageOpen();
+    }
+
+    public void homePageOpen() {
+        wd.findElement(By.linkText("home page")).click();
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
 }
