@@ -48,10 +48,14 @@ public class GroupHelper extends HelperBase {
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
-        app.getNavigationHelper().goToGroupPage();
+
     }
 
     public boolean isThereAGroup() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public int getGroupCount() {
+       return wd.findElements(By.name("selected[]")).size();
     }
 }
