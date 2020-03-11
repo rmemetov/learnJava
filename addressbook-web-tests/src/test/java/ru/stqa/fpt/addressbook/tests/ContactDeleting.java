@@ -11,14 +11,12 @@ public class ContactDeleting extends TestBase {
 
     @Test
     public void contactDeletingTest() throws Exception {
-        if (! app.getContactHelper().isThereAContact()) {
-
+        if (!app.getContactHelper().isThereAContact()) {
             app.getContactHelper().goToAddContactPage();
             app.getContactHelper().createContact(new ContactData("Ivanov", "Ivan", "Moscow", "71234567890", "test@test.ru", "test2"));
         }
         List<ContactData> before = app.getContactHelper().getContactList();
 
-        //int before = app.getContactHelper().getContactCount();
         app.getContactHelper().getContactById(before.size() - 1);
         app.getContactHelper().acceptNextAllert();
         app.getContactHelper().deleteContact();
@@ -26,12 +24,9 @@ public class ContactDeleting extends TestBase {
         app.homePageOpen();
         List<ContactData> after = app.getContactHelper().getContactList();
 
-       // int after = app.getContactHelper().getContactCount();
         Assert.assertEquals(after.size(), before.size() - 1);
-
         before.remove(before.size() - 1);
-            Assert.assertEquals(before, after);
-
+        Assert.assertEquals(before, after);
     }
 
 }
