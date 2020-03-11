@@ -59,7 +59,7 @@ public class ApplicationManager {
     }
 
     public void homePageOpen() {
-        wd.findElement(By.linkText("home page")).click();
+        wd.findElement(By.linkText("home")).click();
     }
 
     public boolean isElementPresent(By by) {
