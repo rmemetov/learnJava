@@ -8,22 +8,27 @@ import java.util.List;
 
 public class DeletingGroupTest extends TestBase {
 
+    public void ensurePreconditions() {
+        app.goTo().groupPage();
+
+        if (app.group().list().size() == 0) {
+
+            app.group().create(new GroupData().withName("test1"));
+        }
+    }
+
     @Test
     public void testDeletingGroup() throws Exception {
-        app.getNavigationHelper().goToGroupPage();
 
-        if (!app.getGroupHelper().isThereAGroup()) {
-            app.getGroupHelper().createGroup(new GroupData("test2", null, null));
-        }
-        List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroup(before.size() - 1);
-        app.getGroupHelper().deleteGroup();
-        app.getNavigationHelper().goToGroupPage();
-        List<GroupData> after = app.getGroupHelper().getGroupList();
+        List<GroupData> before = app.group().list();
+        int index = before.size() - 1;
+        app.group().delete(index);
+        List<GroupData> after = app.group().list();
         Assert.assertEquals(after.size(), before.size() - 1);
 
-        before.remove(before.size() - 1);
+        before.remove(index);
         Assert.assertEquals(before, after);
     }
+
 
 }
