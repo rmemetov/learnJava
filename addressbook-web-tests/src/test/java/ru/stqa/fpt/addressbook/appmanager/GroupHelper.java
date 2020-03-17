@@ -62,10 +62,8 @@ public class GroupHelper extends HelperBase {
     }
 
     public void delete(int index) {
-        app.goTo().groupPage();
         selectGroup(index);
         deleteGroup();
-        app.goTo().groupPage();
     }
 
 
