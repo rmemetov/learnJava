@@ -8,6 +8,17 @@ public class ContactData {
     private  String lastname;
     private  String address;
     private  String mobilephone;
+    private String homePhone;
+    private String workPhone;
+
+
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
+    }
 
     public ContactData withFirstname(String firstname) {
         this.firstname = firstname;
@@ -36,6 +47,17 @@ public class ContactData {
 
     public ContactData withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+
+    public ContactData withHomePhone(String home) {
+        this.homePhone = home;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String work) {
+        this.workPhone = work;
         return this;
     }
 
@@ -88,6 +110,7 @@ public class ContactData {
     public String getGroup() {
         return group;
     }
+
 
     @Override
     public String toString() {
