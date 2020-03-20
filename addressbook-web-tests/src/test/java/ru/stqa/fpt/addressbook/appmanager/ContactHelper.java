@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.fpt.addressbook.model.ContactData;
+import ru.stqa.fpt.addressbook.model.Contacts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.testng.Assert.assertTrue;
@@ -67,8 +67,8 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.name("update")).click();
     }
 
-    public void editContact(int index) {
-        wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+    public void editContact(int id) {
+        wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a",id))).click();
     }
 
     public void deleteContact() {
@@ -79,8 +79,8 @@ public class ContactHelper extends HelperBase {
         acceptNextAlert = true;
     }
 
-    public void getContactById(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void closeAlert() {
@@ -103,7 +103,7 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void createContact(ContactData contactData) {
+    public void create(ContactData contactData) {
         fillForm(contactData);
         confirmContactCreation();
         homePageOpen();
@@ -121,8 +121,9 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("//table[@id='maintable']/tbody/tr[2]/td/input")).size();
     }
 
-    public List<ContactData> getContactList() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
+
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
 
         for (WebElement element : elements) {
@@ -131,9 +132,27 @@ public class ContactHelper extends HelperBase {
 
             String lastname = cells.get(1).getText();
             String firstname = cells.get(2).getText();
-            ContactData contact = new ContactData(id, firstname, lastname, null, null, null, null);
-            contacts.add(contact);
+            contacts.add(new ContactData()
+                    .withId(id)
+                    .withFirstname(firstname)
+                    .withLastname(lastname));
         }
         return contacts;
+    }
+
+    public void modify(ContactData contact) {
+
+        selectContactById(contact.getId());
+        editContact(contact.getId());
+        fillForm(contact);
+        updateContact();
+        homePageOpen();
+    }
+
+    public void delete(ContactData contact) {
+        selectContactById(contact.getId());
+        acceptNextAllert();
+        deleteContact();
+        closeAlert();
     }
 }

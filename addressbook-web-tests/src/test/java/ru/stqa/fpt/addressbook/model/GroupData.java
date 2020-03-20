@@ -5,13 +5,14 @@ import java.util.Objects;
 public class GroupData {
 
     private int id = Integer.MAX_VALUE;
-    private  String name;
-    private  String header;
+    private String name;
+    private String header;
 
     public GroupData withId(int id) {
         this.id = id;
         return this;
     }
+
     public GroupData withName(String name) {
         this.name = name;
         return this;
@@ -30,20 +31,7 @@ public class GroupData {
 
     }
 
-    private  String footer;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        GroupData groupData = (GroupData) o;
-        return Objects.equals(name, groupData.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
+    private String footer;
 
     public int getId() {
         return id;
@@ -55,6 +43,20 @@ public class GroupData {
 
     public String getHeader() {
         return header;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GroupData groupData = (GroupData) o;
+        return id == groupData.id &&
+                Objects.equals(name, groupData.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 
     public String getFooter() {
