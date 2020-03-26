@@ -14,7 +14,14 @@ public class AddContactTest extends TestBase {
     public void contactCreateTest() throws Exception {
         Contacts before = app.contact().all();
         ContactData contact = new ContactData()
-                .withFirstname("Ivan").withLastname("Ivanov").withMobilephone("+79123213223").withEmail("test@test.test").withAddress("").withGroup("test2");
+                .withFirstname("Ivan")
+                .withLastname("Ivanov")
+                .withMobilephone("1234")
+                .withEmail("test@test.test")
+                .withAddress("\"321123, Saint Petersburg,\\n\" + \"prospekt Prosvyasheniya, 25/3-43\\n\" + \"domofon 66\"")
+                .withGroup("test2")
+                .withHomePhone("321123")
+                .withWorkPhone("123132");
         app.contact().goToAddContactPage();
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size() + 1));

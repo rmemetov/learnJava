@@ -4,13 +4,69 @@ import java.util.Objects;
 
 public class ContactData {
     private int id = Integer.MAX_VALUE;
-    private  String firstname;
-    private  String lastname;
-    private  String address;
-    private  String mobilephone;
+    private String firstname;
+    private String lastname;
+    private String address;
+    private String mobilephone;
     private String homePhone;
     private String workPhone;
+    private String allPhones;
+    private String group;
+    private String Email;
+    private String Email2;
+    private String Email3;
+    private String allEmails;
 
+    public ContactData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
+        return this;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+
+    public ContactData withEmail(String email) {
+        Email = email;
+        return this;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public String getEmail2() {
+        return Email2;
+    }
+
+    public ContactData withEmail2(String email2) {
+        Email2 = email2;
+        return this;
+    }
+
+    public String getEmail3() {
+        return Email3;
+    }
+
+    public ContactData withEmail3(String email3) {
+        Email3 = email3;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
 
     public String getHomePhone() {
         return homePhone;
@@ -30,20 +86,12 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withAddress(String address) {
-        this.address = address;
-        return this;
-    }
 
     public ContactData withMobilephone(String mobilephone) {
         this.mobilephone = mobilephone;
         return this;
     }
 
-    public ContactData withEmail(String email) {
-        this.email = email;
-        return this;
-    }
 
     public ContactData withGroup(String group) {
         this.group = group;
@@ -60,10 +108,6 @@ public class ContactData {
         this.workPhone = work;
         return this;
     }
-
-    private  String email;
-    private String group;
-
 
     @Override
     public boolean equals(Object o) {
@@ -85,8 +129,6 @@ public class ContactData {
         return this;
     }
 
-
-
     public String getFirstname() {
         return firstname;
     }
@@ -101,10 +143,6 @@ public class ContactData {
 
     public String getMobilephone() {
         return mobilephone;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public String getGroup() {

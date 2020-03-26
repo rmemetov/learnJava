@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactPhoneTest extends TestBase {
+public class ContactAddressTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
@@ -18,28 +18,33 @@ public class ContactPhoneTest extends TestBase {
         if (app.contact().all().size() == 0) {
             app.contact().create(new ContactData()
                     .withLastname("test").withFirstname("test")
-                    .withHomePhone("22 33").withMobilephone("+79111111111")
-                    .withWorkPhone("812-123-12-12").withEmail("test@mail.com").withGroup("test1"));
+                    .withAddress("\"321123, Saint Petersburg,\\n\" + \"prospekt Prosvyasheniya, 25/3-43\\n\" + \"domofon 66\"")
+                    .withMobilephone("+79111111111")
+                    .withEmail("test@mail.com")
+                    .withGroup("test1"));
         }
     }
 
     @Test
-    public void testContactPhones() {
+    public void testContactAddress() {
         app.goTo().homePage();
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-        assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
+        assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
+
+        assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
+
     }
 
-    private String mergePhones(ContactData contact) {
-        return Arrays.asList(contact.getHomePhone(), contact.getMobilephone(), contact.getWorkPhone())
+    private String mergeEmails(ContactData contact) {
+        return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
                 .stream().filter((s) -> !s.equals(""))
-                .map(ContactPhoneTest::cleaned)
+                .map(ContactAddressTest::cleaned)
                 .collect(Collectors.joining("\n"));
     }
 
-    public static String cleaned(String phone) {
-        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
+    public static String cleaned(String email) {
+        return email.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
 }
