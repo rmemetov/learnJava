@@ -4,6 +4,8 @@ import org.testng.annotations.Test;
 import ru.stqa.fpt.addressbook.model.ContactData;
 import ru.stqa.fpt.addressbook.model.Contacts;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -13,13 +15,14 @@ public class AddContactTest extends TestBase {
     @Test()
     public void contactCreateTest() throws Exception {
         Contacts before = app.contact().all();
+        File photo = new File("src/test/resources/pic.jpg");
         ContactData contact = new ContactData()
                 .withFirstname("Ivan")
                 .withLastname("Ivanov")
                 .withMobilephone("1234")
                 .withEmail("test@test.test")
                 .withAddress("\"321123, Saint Petersburg,\\n\" + \"prospekt Prosvyasheniya, 25/3-43\\n\" + \"domofon 66\"")
-                .withGroup("test2")
+                .withPhoto(photo)
                 .withHomePhone("321123")
                 .withWorkPhone("123132");
         app.contact().goToAddContactPage();
@@ -28,6 +31,17 @@ public class AddContactTest extends TestBase {
         Contacts after = app.contact().all();
         assertThat(after, equalTo(
                 before.withAdded( contact.withId(after.stream().mapToInt((c) ->c.getId()).max().getAsInt()))));
+    }
+
+    @Test
+
+    public void testCurrentDir(){
+        File currentDir = new File(".");
+        System.out.println(currentDir.getAbsolutePath());
+        File photo = new File("src/test/resources/pic.jpg");
+        System.out.println(photo.getAbsolutePath());
+        System.out.println(photo.exists());
+
     }
 
     @Test()
