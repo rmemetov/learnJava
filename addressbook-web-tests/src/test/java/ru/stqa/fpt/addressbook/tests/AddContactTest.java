@@ -35,20 +35,11 @@ public class AddContactTest extends TestBase {
     }
 
     @Test(dataProvider = "validContactsFromJson")
-    public void contactCreateTest() throws Exception {
+    public void contactCreateTest(ContactData contact) throws Exception {
         Contacts before = app.contact().all();
         File photo = new File("src/test/resources/pic.jpg");
-        ContactData contact = new ContactData()
-                .withFirstname("Ivan")
-                .withLastname("Ivanov")
-                .withMobilephone("1234")
-                .withEmail("test@test.test")
-                .withAddress("\"321123, Saint Petersburg,\\n\" + \"prospekt Prosvyasheniya, 25/3-43\\n\" + \"domofon 66\"")
-                .withPhoto(photo)
-                .withHomePhone("321123")
-                .withWorkPhone("123132");
         app.contact().goToAddContactPage();
-        app.contact().create(contact);
+        app.contact().create(contact.withPhoto(photo));
         app.goTo().homePage();
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.contact().all();
