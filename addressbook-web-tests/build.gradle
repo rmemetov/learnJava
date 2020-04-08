@@ -11,6 +11,7 @@ dependencies {
     implementation 'com.beust:jcommander:1.78'
     implementation 'com.thoughtworks.xstream:xstream:1.4.11.1'
     implementation 'org.immutables:gson:2.8.3'
+    implementation 'mysql:mysql-connector-java:8.0.19'
 }
 
 task testGroups(type: Test) {
@@ -34,6 +35,10 @@ task testContacts(type: Test) {
     }
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
+    }
+
+    test {
+        useTestNG()
     }
 
 }
