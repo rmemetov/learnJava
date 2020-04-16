@@ -53,10 +53,12 @@ public class ContactData {
     @Transient
     private String allEmails;
 
+    @Transient
     @Column(name = "photo")
     @Type(type = "mediumtext")
     private String photo;
 
+    @Transient
     public File getPhoto() {
         return new File(photo);
     }
