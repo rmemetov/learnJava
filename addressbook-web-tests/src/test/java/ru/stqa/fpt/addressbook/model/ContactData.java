@@ -21,6 +21,7 @@ public class ContactData {
     private String lastname;
 
     @Column(name = "address")
+    @Type(type = "text")
     private String address;
 
     @Column(name = "mobile")
@@ -42,20 +43,21 @@ public class ContactData {
     private String group;
 
     @Column(name = "email")
+    @Type(type = "text")
     private String Email;
 
     @Column(name = "email2")
+    @Type(type = "text")
     private String Email2;
 
     @Column(name = "email3")
+    @Type(type = "text")
     private String Email3;
 
     @Transient
     private String allEmails;
 
     @Transient
-    @Column(name = "photo")
-    @Type(type = "mediumtext")
     private String photo;
 
     @Transient
