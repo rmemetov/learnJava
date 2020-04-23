@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import ru.stqa.fpt.addressbook.model.ContactData;
 import ru.stqa.fpt.addressbook.model.Contacts;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
@@ -32,7 +34,7 @@ public class ContactModificationTest extends TestBase {
     public void contactModification() {
 
 
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId())
@@ -41,12 +43,13 @@ public class ContactModificationTest extends TestBase {
                 .withMobilephone("+66666666666")
                 .withEmail("raz@dva.tri")
                 .withAddress("Moscow")
-                .withGroup(null);
+                .withGroup(null)
+                .withPhoto(new File("src/test/resources/pic.jpg"));
         app.contact().modify(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
-        Contacts after = app.contact().all();
-        assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)) );
+        Contacts after = app.db().contacts();
+        assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+        verifyContactListInUi();
     }
-
 
 }
