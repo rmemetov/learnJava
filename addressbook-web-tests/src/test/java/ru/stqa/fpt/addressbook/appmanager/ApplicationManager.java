@@ -10,7 +10,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -26,6 +25,8 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private String browser;
     private DbHelper dbHelper;
+    private TestDataHelper testDataHelper;
+
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -39,6 +40,8 @@ public class ApplicationManager {
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
         dbHelper = new DbHelper();
+        testDataHelper = new TestDataHelper();
+
 
         if (browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
@@ -109,5 +112,9 @@ public class ApplicationManager {
 
     public DbHelper db(){
         return dbHelper;
+    }
+
+    public TestDataHelper getTestDataHelper() {
+        return testDataHelper;
     }
 }

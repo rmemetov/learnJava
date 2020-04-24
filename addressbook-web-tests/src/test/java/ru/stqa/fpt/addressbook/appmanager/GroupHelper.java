@@ -3,6 +3,7 @@ package ru.stqa.fpt.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.fpt.addressbook.model.GroupData;
 import ru.stqa.fpt.addressbook.model.Groups;
 
@@ -98,6 +99,5 @@ public class GroupHelper extends HelperBase {
         }
         return new Groups(groupCache);
     }
-
 
 }

@@ -9,7 +9,6 @@ import java.io.File;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTest extends TestBase {
 
@@ -23,8 +22,7 @@ public class ContactModificationTest extends TestBase {
                     .withLastname("Ivanov")
                     .withMobilephone("+79123213223")
                     .withEmail("test@test.test")
-                    .withAddress("")
-                    .withGroup("test2"));
+                    .withAddress(""));
         }
         app.goTo().homePage();
 
@@ -43,7 +41,6 @@ public class ContactModificationTest extends TestBase {
                 .withMobilephone("+66666666666")
                 .withEmail("raz@dva.tri")
                 .withAddress("Moscow")
-                .withGroup(null)
                 .withPhoto(new File("src/test/resources/pic.jpg"));
         app.contact().modify(contact);
         assertThat(app.contact().count(), equalTo(before.size()));

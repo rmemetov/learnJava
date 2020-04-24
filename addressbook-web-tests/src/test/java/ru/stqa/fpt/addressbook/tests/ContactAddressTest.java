@@ -20,8 +20,7 @@ public class ContactAddressTest extends TestBase {
                     .withLastname("test").withFirstname("test")
                     .withAddress("\"321123, Saint Petersburg,\\n\" + \"prospekt Prosvyasheniya, 25/3-43\\n\" + \"domofon 66\"")
                     .withMobilephone("+79111111111")
-                    .withEmail("test@mail.com")
-                    .withGroup("test1"));
+                    .withEmail("test@mail.com"));
         }
     }
 

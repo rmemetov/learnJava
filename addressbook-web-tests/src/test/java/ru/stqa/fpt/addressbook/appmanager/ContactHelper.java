@@ -4,8 +4,10 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.fpt.addressbook.model.ContactData;
 import ru.stqa.fpt.addressbook.model.Contacts;
+import ru.stqa.fpt.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -42,6 +44,12 @@ public class ContactHelper extends HelperBase {
         attach(By.name("photo"), contactData.getPhoto());
     }
 
+    public void addContactToGroup(int id, GroupData group) {
+        selectContactById(id);
+        selectGroup(group.getId());
+        click(By.name("add"));
+        returnToHomepageWithSelectedGroup(group.getName());
+    }
 
     public void goToAddContactPage() {
         wd.findElement(By.linkText("add new")).click();
@@ -67,6 +75,10 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
+    public void selectGroup(int groupId) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(groupId));
+    }
+
     public void closeAlert() {
         assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
     }
@@ -88,6 +100,10 @@ public class ContactHelper extends HelperBase {
 
     public void homePageOpen() {
         wd.findElement(By.linkText("home page")).click();
+    }
+
+    public void returnToHomepageWithSelectedGroup(String groupName){
+        click(By.linkText(String.format("group page \"%s\"", groupName)));
     }
 
     public boolean isThereAContact() {
